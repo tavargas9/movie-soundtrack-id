@@ -1,6 +1,7 @@
 var dropdownBtn = document.querySelector("#dropdown-btn");
 var dropdownContent = document.querySelector("#dropdown-content");
 
+//Add dropdown functionality:
 dropdownBtn.addEventListener('click', showDropdownMenu);
 
 function showDropdownMenu(event) {
