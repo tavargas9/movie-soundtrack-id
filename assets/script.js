@@ -36,6 +36,7 @@ function getMovieId(input) {
         .then(function(data){
             console.log(data);
             getSoundtrack(data);
+            showMovieInfo(data);
         })
     });
 
@@ -49,15 +50,34 @@ function getSoundtrack(info) {
             response.json()
             .then(function(data){
                 console.log(data);
+                showSoundtracks(data);
             })
     });
 };
 
+var movieTitleEl = document.getElementById('movie-title');
+var movieDescEl = document.getElementById('movie-description');
 
+function showMovieInfo(movie) {
+    //function for displaying movie information on website.
+    movieTitleEl.textContent = movie.d[0].l
+    movieDescEl.innerHTML = '<img src="' + movie.d[0].i.imageUrl + '" alt=""></>'
+}
+
+var soundtracksListEl = document.getElementById('soundtracks-list');
 
 function showSoundtracks(tracks) {
     //function for displaying soundtrack info on website.
-    
+    for (var i = 0; i < tracks.soundtracks.length; i++) {
+        listItem = document.createElement('li');
+        listItem.classList = 'mt-3 items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+        if(tracks.soundtracks[i].products) {
+            listItem.textContent = tracks.soundtracks[i].name + ' - ' + tracks.soundtracks[i].products[0].artist        
+        } else {
+            listItem.textContent = tracks.soundtracks[i].name + ' - ' + tracks.soundtracks[i].comment
+        }
+        soundtracksListEl.appendChild(listItem);
+    };
 };
 
 function handleSearch (event) {
@@ -65,10 +85,34 @@ function handleSearch (event) {
     let userInputValue = userInput.value
     let replacedInput = userInputValue.replace(/ /g, '%20');
     getMovieId(replacedInput);
+    hideHeroSection();
+    showSearchResults();
 };
 
 searchBar.addEventListener('submit', handleSearch);
 
+var heroSection = document.getElementById('hero');
+
+function hideHeroSection () {
+    if (!heroSection.classList.contains('hidden')) {
+        heroSection.classList.add('hidden');
+    };
+};
+
+var searchResultSection = document.getElementById('search-result-section');
+
+function showSearchResults() {
+    if (searchResultSection.classList.contains('hidden')){
+        searchResultSection.classList.remove('hidden');
+    }
+}
+
+
+var logoButton = document.getElementById('company-logo');
+
+logoButton.addEventListener('click', function(){
+    location.reload();
+});
 
 
 
