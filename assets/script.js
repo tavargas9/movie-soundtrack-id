@@ -71,10 +71,6 @@ searchBar.addEventListener('submit', handleSearch);
 
 
 
-
-
-
-
 //Shazam api key example
 // const url = 'https://shazam.p.rapidapi.com/search?term=kiss%20the%20rain&locale=en-US&offset=0&limit=5';
 // const options = {
