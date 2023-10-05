@@ -53,8 +53,11 @@ function getSoundtrack(info) {
     });
 };
 
+
+
 function showSoundtracks(tracks) {
-    //write function for displaying soundtrack info on website.
+    //function for displaying soundtrack info on website.
+    
 };
 
 function handleSearch (event) {
