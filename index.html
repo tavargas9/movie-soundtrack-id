@@ -154,15 +154,40 @@
 
         <div class="p-5">
     
-            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center">Soundtracks:</h5>
+            <h5 id="soundtracks-heading" class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center">Soundtracks:</h5>
             <ul id="soundtracks-list" class="flex flex-col">
             </ul>
         </div>
     </div>
 </div>
 
-
         <!-- oct. 2nd progress -->
+
+      <!--Search history section-->
+        <div id="search-history-section" class="relative isolate px-6 pt-14 lg:px-8 hidden">
+          <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">   
+          <div class="text-center mt-6">
+              <h1 class="text-4xl font-bold mb-5 tracking-tight text-indigo-600 sm:text-6xl">Previous Search Results:</h1>
+              <ul id="previous-searches-list" class="flex flex-col">
+                <li class="rounded-md bg-indigo-600 px-3.5 py-2.5 my-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                  Item 1.
+                </li>
+                <li class="rounded-md bg-indigo-600 px-3.5 py-2.5 my-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                  Item 1.
+                </li>
+              </ul>
+              <div class="mt-10 flex items-center justify-center gap-x-6">
+              <a href="#" 
+              class="mx-5 py-1.5 px-4 bg-transparent text-indigo-600 font-semibold border border-indigo-600 rounded hover:bg-indigo-600 hover:text-white hover:border-transparent transition ease-in duration-200 transform hover:-translate-y-1 active:translate-y-0">
+                Clear search history 
+              </a>
+              </div>
+          </div>
+          </div>
+      </div>
+      <!--end search history section-->
+
+
         <footer>
           <!-- style of footer -->
           <div class="flex items-end w-full min-h-fit mt-10 bg-white">
