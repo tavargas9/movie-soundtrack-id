@@ -43,16 +43,26 @@ function getMovieId(input) {
 };
 
 function getSoundtrack(info) {
-    let urlIMDB = 'https://imdb8.p.rapidapi.com/title/get-sound-tracks?tconst=' + info.d[0].id
+    //Following code searches for soundtrack by iMDB's id.
+    //Movies and tv shows start with the id of 'tt'.
+    //The following code checks if the search value is a movie or tv series by checking if it starts with 'tt'
+    if (info.d[0].id.startsWith('tt')){
+        let urlIMDB = 'https://imdb8.p.rapidapi.com/title/get-sound-tracks?tconst=' + info.d[0].id
 
-    fetch(urlIMDB, optionsIMDB)
-        .then(function (response) {
-            response.json()
-            .then(function(data){
-                console.log(data);
-                showSoundtracks(data);
-            })
-    });
+        fetch(urlIMDB, optionsIMDB)
+            .then(function (response) {
+                    response.json()
+                    .then(function(data){
+                        console.log(data);
+                        showSoundtracks(data);
+                    })
+        });
+    } else {
+        popupModal.classList.remove('hidden');
+        searchHistorySection.classList.add('blur-2xl');
+        searchResultSection.classList.add('blur-2xl');
+        modalText.textContent = 'Please search for a valid movie'
+    };
 };
 
 var movieTitleEl = document.getElementById('movie-title');
@@ -182,6 +192,38 @@ function showHistory() {
         searchHistorySection.classList.remove('hidden');
     };
 };
+
+function renderAutocomplete(movieNames) {
+    console.log(movieNames);
+    return $('#search-input-text').autocomplete({
+        source: movieNames,
+        delay: 100
+      });
+}
+
+
+function getAutocomplete(input) {
+    var movieNames = []
+    let urlIMDB = 'https://imdb8.p.rapidapi.com/auto-complete?q=' + input;
+    console.log(urlIMDB);
+    fetch(urlIMDB, optionsIMDB)
+    .then(function (response) {
+        response.json()
+        .then(function(data){
+            for(var i = 0; i < data.d.length; i++) {
+                movieNames.push(data.d[i].l);
+            };
+            renderAutocomplete(movieNames);
+        })
+    });
+};
+
+userInput.addEventListener('input', function(){
+    let userInputValue = userInput.value;
+    let replacedInput = userInputValue.replace(/ /g, '%20');
+    getAutocomplete(replacedInput);
+});
+
 
 
 
