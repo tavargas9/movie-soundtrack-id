@@ -60,12 +60,14 @@ var movieDescEl = document.getElementById('movie-description');
 
 function showMovieInfo(movie) {
     //function for displaying movie information on website.
-    movieTitleEl.textContent = movie.d[0].l
+    movieTitleEl.textContent = movie.d[0].l + ' (' + movie.d[0].y + ')'
     movieDescEl.innerHTML = '<img src="' + movie.d[0].i.imageUrl + '" alt=""></>'
 }
 
 var soundtracksListEl = document.getElementById('soundtracks-list');
 var soundtracksHeading = document.getElementById('soundtracks-heading');
+var popupModal = document.getElementById('popup-modal');
+var modalText = document.getElementById('modal-text');
 
 function showSoundtracks(tracks) {
     //function for displaying soundtrack info on website.
@@ -81,10 +83,18 @@ function showSoundtracks(tracks) {
             soundtracksListEl.appendChild(listItem);
         };
     } else {
-        soundtracksHeading.textContent = 'No soundtracks found :(';
-    }
+        popupModal.classList.remove('hidden');
+        searchHistorySection.classList.add('blur-2xl');
+        searchResultSection.classList.add('blur-2xl');
+        modalText.textContent = 'No soundtracks found for ' + tracks.base.title
+    };
 
 };
+
+var hideModalBtn = document.getElementById('hide-modal');
+hideModalBtn.addEventListener('click', function(){
+    location.reload();
+});
 
 function handleSearch (event) {
     soundtracksListEl.innerHTML = '';
