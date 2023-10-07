@@ -229,7 +229,9 @@ var clearHistoryBtn = document.getElementById('clear-search-history');
 
 clearHistoryBtn.addEventListener('click', function(){
     localStorage.clear()
-    location.reload()
+    modalText.textContent = 'Search history cleared!'
+    popupModal.classList.remove('hidden');
+    searchHistorySection.classList.add('blur-2xl');
 })
 
 var viewHistoryBtn = document.getElementById('view-history-btn');
