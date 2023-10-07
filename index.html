@@ -58,7 +58,7 @@
                       </svg>
                     </div>
                     <div class="flex-auto">
-                      <a href="#" class="block font-semibold text-gray-900">
+                      <a href="#" onclick="location.reload()" class="block font-semibold text-gray-900">
                         Home
                         <span class="absolute inset-0"></span>
                       </a>
@@ -71,7 +71,7 @@
                       </svg>                    
                     </div>
                     <div class="flex-auto">
-                      <a href="#" class="block font-semibold text-gray-900">
+                      <a id="view-history-btn" href="#" class="block font-semibold text-gray-900">
                         View Search History
                         <span class="absolute inset-0"></span>
                       </a>
@@ -136,7 +136,7 @@
                     No soundtracks found!
                   </h3>
                   <button id="hide-modal" data-modal-hide="popup-modal" type="button" class="text-white bg-blue-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2">
-                      Try again
+                      Go back
                   </button>
               </div>
           </div>
@@ -174,7 +174,7 @@
 
       <!--Search history section-->
         <div id="search-history-section" class="relative isolate px-6 pt-14 lg:px-8 hidden">
-          <div class="mx-auto max-w-2xl py-32 sm:py-48 lg:py-56">   
+          <div class="mx-auto max-w-2xl pt-3 pb-56">   
           <div class="text-center mt-6">
               <h1 class="text-4xl font-bold mb-5 tracking-tight text-blue-600 sm:text-6xl">Previous Searches:</h1>
               <ul id="previous-searches-list" class="flex flex-col">
@@ -186,7 +186,7 @@
                 </li>
               </ul>
               <div class="mt-10 flex items-center justify-center gap-x-6">
-              <a href="#" 
+              <a href="#" id="clear-search-history"
               class="mx-5 py-1.5 px-4 bg-transparent text-blue-600 font-semibold border border-blue-600 rounded hover:bg-blue-600 hover:text-white hover:border-transparent transition ease-in duration-200 transform hover:-translate-y-1 active:translate-y-0">
                 Clear search history 
               </a>
@@ -248,7 +248,7 @@
               </div>
               <div class="bg-gray-300">
                   <div class="container px-5 py-4 mx-auto">
-                      <p class="text-sm text-gray-700 capitalize xl:text-center">© 2023 All rights reserved (patent pending) </p>
+                      <p class="text-sm text-gray-700 capitalize xl:text-center">© 2023 Movie Soundtrack Identifier (MIT License)</p>
                   </div>
               </div>
           </footer>
