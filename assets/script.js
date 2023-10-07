@@ -39,7 +39,7 @@ function getMovieId(input) {
             showMovieInfo(data);
         })
     });
-
+    hideHistorySection();
 };
 
 function getSoundtrack(info) {
@@ -184,7 +184,6 @@ function pushHistory() {
     userInput.value = '';
     storeHistory();
     renderHistory();
-    showHistory();
 };
 
 function showHistory() {
@@ -226,7 +225,51 @@ userInput.addEventListener('input', function(){
 
 init();
 
+var clearHistoryBtn = document.getElementById('clear-search-history');
 
+clearHistoryBtn.addEventListener('click', function(){
+    localStorage.clear()
+    location.reload()
+})
+
+var viewHistoryBtn = document.getElementById('view-history-btn');
+
+viewHistoryBtn.addEventListener('click', function(event) {
+    event.preventDefault();
+    var storedHistory = JSON.parse(localStorage.getItem("searchHistory"));
+    if (storedHistory) {
+        hideHeroSection();
+        hideResultsSection();
+        showHistory();
+    } else {
+        popupModal.classList.remove('hidden');
+        heroSection.classList.add('blur-2xl');
+        modalText.textContent = 'No search history found!';
+    };
+    showDropdownMenu(event);
+});
+
+searchHistoryList.addEventListener('click', function(event){
+    var element = event.target
+    if (element.matches('li')) {
+        soundtracksListEl.innerHTML = '';
+        var searchFor = element.textContent;
+        getMovieId(searchFor);
+        showSearchResults();
+    };
+});
+
+function hideResultsSection() {
+    if(!searchResultSection.classList.contains('hidden')){
+        searchResultSection.classList.add('hidden');
+    }
+};
+
+function hideHistorySection() {
+    if(!searchHistorySection.classList.contains('hidden')){
+        searchHistorySection.classList.add('hidden');
+    };
+};
 
 
 //Shazam api key example
