@@ -151,7 +151,7 @@ function renderHistory() {
     for (var i = 0; i < searchHistory.length; i++) {
         var historyItem = searchHistory[i];
         var li = document.createElement('li');
-        li.innerHTML = '<li class="rounded-md bg-blue-600 px-3.5 py-2.5 my-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">'
+        li.innerHTML = '<li class="rounded-md bg-blue-600 px-3.5 py-2.5 my-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 cursor-pointer">'
             + historyItem + '</li>';
         searchHistoryList.appendChild(li);
     };
@@ -224,7 +224,7 @@ userInput.addEventListener('input', function(){
     getAutocomplete(replacedInput);
 });
 
-
+init();
 
 
 
