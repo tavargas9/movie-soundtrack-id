@@ -27,14 +27,11 @@ const optionsIMDB = {
 
 function getMovieId(input) {
     let urlIMDB = 'https://imdb8.p.rapidapi.com/auto-complete?q=' + input;
-    console.log(urlIMDB);
 
     fetch(urlIMDB, optionsIMDB)
     .then(function (response) {
-        console.log(response)
         response.json()
         .then(function(data){
-            console.log(data);
             getSoundtrack(data);
             showMovieInfo(data);
         })
@@ -53,7 +50,6 @@ function getSoundtrack(info) {
             .then(function (response) {
                     response.json()
                     .then(function(data){
-                        console.log(data);
                         showSoundtracks(data);
                     })
         });
@@ -84,7 +80,7 @@ function showSoundtracks(tracks) {
     if(tracks.soundtracks) {
         for (var i = 0; i < tracks.soundtracks.length; i++) {
             listItem = document.createElement('li');
-            listItem.classList = 'mt-3 items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+            listItem.classList = 'mt-3 items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 cursor-pointer'
             if(tracks.soundtracks[i].products) {
                 listItem.textContent = tracks.soundtracks[i].name + ' - ' + tracks.soundtracks[i].products[0].artist        
             } else {
@@ -193,7 +189,6 @@ function showHistory() {
 };
 
 function renderAutocomplete(movieNames) {
-    console.log(movieNames);
     return $('#search-input-text').autocomplete({
         source: movieNames,
         delay: 100
@@ -204,7 +199,6 @@ function renderAutocomplete(movieNames) {
 function getAutocomplete(input) {
     var movieNames = []
     let urlIMDB = 'https://imdb8.p.rapidapi.com/auto-complete?q=' + input;
-    console.log(urlIMDB);
     fetch(urlIMDB, optionsIMDB)
     .then(function (response) {
         response.json()
@@ -273,22 +267,51 @@ function hideHistorySection() {
     };
 };
 
+//youtube API options
+const youtubeOptions = {
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': '2d00cc5e8cmshc63eab584c107a7p16171bjsneedccf2d8b11',
+		'X-RapidAPI-Host': 'youtube-data8.p.rapidapi.com'
+	}
+};
 
-//Shazam api key example
-// const url = 'https://shazam.p.rapidapi.com/search?term=kiss%20the%20rain&locale=en-US&offset=0&limit=5';
-// const options = {
-//     method: 'GET',
-//     headers: {
-//         'X-RapidAPI-Key': '2d00cc5e8cmshc63eab584c107a7p16171bjsneedccf2d8b11',
-//         'X-RapidAPI-Host': 'shazam.p.rapidapi.com'
-//     }
-// };
-
-// fetch(url, options)
-//     .then(function(response){
-//         console.log(response)
-//         response.json()
-//         .then(function(data){
-//             console.log(data);
-//         })
-//     });
+//checks which song the user clicks on
+soundtracksListEl.addEventListener('click', function(event){
+    var element = event.target
+    var frame = element.querySelector('iframe')
+    if(!frame) {
+        if(element.matches('li')) {
+            var searchTerm = element.textContent;
+            getVideoId(searchTerm);
+        };
+        //gets the id of the song's video from YouTube API data
+        function getVideoId(input) {
+            var url = 'https://youtube-data8.p.rapidapi.com/search/?q=' + input + '&hl=en&gl=US';
+            fetch(url, youtubeOptions)
+                .then(function(response){
+                    response.json()
+                    .then(function(data){
+                        console.log(data)
+                        embedVideo(data);
+                    })
+                });
+        };
+        //uses the video id from youtube to display the embedded video onto the page
+        function embedVideo(vid) {
+            var videoId =  vid.contents[0].video.videoId;
+            var player = document.createElement('iframe');
+            player.setAttribute('src', 'https://www.youtube.com/embed/' + videoId);
+            player.setAttribute('width', '368');
+            player.setAttribute('height', '207');
+            player.setAttribute('title', 'YouTube video player');
+            player.setAttribute('frameborder', '0');
+            player.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+            player.setAttribute('allowfullscreen', '');
+            player.classList = 'mt-3'
+            element.appendChild(player);
+        };
+    } else {
+        element.removeChild(frame);
+    };
+});
